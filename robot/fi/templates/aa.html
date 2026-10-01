@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CleanBot - Live Stream</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <span>Clean</span>Bot
+        </div>
+        <div class="menu_toggle"></div>
+        <ul class="menu">
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="fi/templates/aa.html">LIVE STREAM</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </header>
+
+    <!-- Section stream ESP32 -->
+    <div class="stream-container">
+        <h3>LIVE DU ROBOT</h3>
+        <div class="video-wrapper">
+            <img id="esp32Stream" src="http://192.168.103.125:81/stream"
+                 alt="Streaming CleanBot"
+                 onerror="handleStreamError(this)">
+            <div id="streamStatus">Connexion en cours...</div>
+            <button class="stream-btn" onclick="refreshStream()">
+                🔄 Rafraîchir
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const ESP32_IP = "192.168.1.17";
+        const STREAM_URL = `http://${ESP32_IP}:81/stream`;
+        let retryCount = 0;
+
+        function handleStreamError(element) {
+            retryCount++;
+            const status = document.getElementById('streamStatus');
+            status.textContent = `Erreur (${retryCount}/3) - Vérifiez la connexion`;
+
+            if (retryCount <= 3) {
+                setTimeout(() => {
+                    element.src = STREAM_URL + '?t=' + Date.now();
+                }, 2000);
+            } else {
+                status.textContent = "Hors ligne - Vérifiez la caméra";
+            }
+        }
+
+        function refreshStream() {
+            retryCount = 0;
+            const video = document.getElementById('esp32Stream');
+            video.src = STREAM_URL + '?t=' + Date.now();
+            document.getElementById('streamStatus').textContent = "Reconnexion...";
+        }
+    </script>
+
+    <!-- Style intégré (inchangé) -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            background-color: rgba(0, 0, 0, 0.9);
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+        }
+        span {
+            color: #fff;
+        }
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 80px;
+            padding: 0 8%;
+        }
+        .logo {
+            color: #45d0e4;
+            font-size: 35px;
+        }
+        .menu {
+            display: flex;
+            align-items: center;
+        }
+        .menu li {
+            list-style: none;
+            margin: 0 15px;
+        }
+        .menu li a {
+            color: #999;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 14px;
+            transition: 0.5s;
+        }
+        .menu li a:hover {
+            color: #fff;
+        }
+        .stream-container {
+            padding: 20px 8%;
+            text-align: center;
+        }
+        .stream-container h3 {
+            color: #45d0e4;
+            margin-bottom: 15px;
+        }
+        .video-wrapper {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        #esp32Stream {
+            width: 100%;
+            border-radius: 10px;
+            border: 2px solid #45d0e4;
+            background: #000;
+        }
+        #streamStatus {
+            color: #45d0e4;
+            margin: 10px 0;
+            font-size: 14px;
+        }
+        .stream-btn {
+            background: rgba(69, 208, 228, 0.2);
+            border: 1px solid #45d0e4;
+            color: #45d0e4;
+            padding: 8px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+        .stream-btn:hover {
+            background: rgba(69, 208, 228, 0.4);
+        }
+        @media (max-width: 770px) {
+            .stream-container {
+                padding: 20px;
+            }
+            #esp32Stream {
+                border-radius: 5px;
+            }
+        }
+    </style>
+    
+</body>
+</html>

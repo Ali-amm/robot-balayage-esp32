@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CleanBot - Contact</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <span>Clean</span>Bot
+        </div>
+        <div class="menu_toggle"></div>
+        <ul class="menu">
+            <li><a href="index .html">Accueil</a></li>
+            <li><a href="fi/templates/aa.html">LIVE STREAM</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </header>
+
+    <section class="contact-section">
+        <div class="left">
+            <h1>
+                <span>Contactez</span>
+                <span>-</span>
+                <span>nous</span>
+            </h1>
+            <p>Vous avez des questions sur notre robot de balayage ou souhaitez en savoir plus sur nos produits ? N'hésitez pas à nous contacter en utilisant le formulaire ci-contre ou directement par email/téléphone.</p>
+            
+            <div class="contact-info">
+                <div class="info-item">
+                    <i class="icon">📧</i>
+                    <span>Firasnjim123@gmail.com</span>
+                </div>
+                <div class="info-item">
+                    <i class="icon">📞</i>
+                    <span>26223363</span>
+                </div>
+                <div class="info-item">
+                    <i class="icon">🏢</i>
+                    <span>123 iset sousse, 75000 sousse</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="right">
+            <form class="contact-form">
+                <div class="form-group">
+                    <input type="text" placeholder="Votre nom" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" placeholder="Votre email" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" placeholder="Sujet">
+                </div>
+                <div class="form-group">
+                    <textarea placeholder="Votre message" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Envoyer</button>
+            </form>
+        </div>
+    </section>
+
+    <script src="firas.js"></script>
+    <style>
+        /* Styles spécifiques à la page Contact */
+        .contact-section {
+            height: calc(100vh - 80px);
+            padding: 0 8%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .contact-info {
+            margin-top: 30px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            color: #999;
+        }
+
+        .info-item .icon {
+            margin-right: 15px;
+            color: #45d0e4;
+            font-size: 20px;
+        }
+
+        .contact-form {
+            background: rgba(69, 208, 228, 0.1);
+            padding: 30px;
+            border-radius: 10px;
+            border: 1px solid #45d0e4;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #45d0e4;
+            border-radius: 5px;
+            color: white;
+            font-size: 14px;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background: rgba(69, 208, 228, 0.2);
+            border: 1px solid #45d0e4;
+            color: #45d0e4;
+            padding: 12px 30px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+            text-transform: uppercase;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            background: rgba(69, 208, 228, 0.4);
+            letter-spacing: 1px;
+        }
+
+        /* Responsive */
+        @media (max-width: 770px) {
+            .contact-section {
+                flex-direction: column;
+                padding: 30px;
+                height: auto;
+            }
+
+            .left, .right {
+                width: 100%;
+            }
+
+            .right {
+                margin-top: 40px;
+            }
+
+            .contact-form {
+                padding: 20px;
+            }
+        }
+    </style>
+    <!-- Ajoutez ces éléments juste avant la fermeture du body (avant les scripts) -->
+<div class="overlay"></div>
+
+<div class="popup success">
+    <span class="popup-icon">✓</span>
+    <span class="popup-message">Votre message a été envoyé avec succès!</span>
+    <span class="popup-close">×</span>
+</div>
+
+<div class="popup error">
+    <span class="popup-icon">⚠</span>
+    <span class="popup-message">Une erreur s'est produite. Veuillez réessayer.</span>
+    <span class="popup-close">×</span>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.querySelector('.contact-form');
+        const successPopup = document.querySelector('.popup.success');
+        const errorPopup = document.querySelector('.popup.error');
+        const overlays = document.querySelectorAll('.overlay');
+        const closeButtons = document.querySelectorAll('.popup-close');
+        
+        // Gestion de la soumission du formulaire
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Simulation d'envoi (remplacez par votre vrai code d'envoi)
+            const isSuccess = Math.random() > 0.3; // 70% de chance de succès pour la démo
+            
+            setTimeout(() => {
+                if (isSuccess) {
+                    showPopup(successPopup);
+                    form.reset();
+                } else {
+                    showPopup(errorPopup);
+                }
+            }, 1000);
+        });
+        
+        // Fermer les popups
+        closeButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const popup = this.closest('.popup');
+                hidePopup(popup);
+            });
+        });
+        
+        overlays.forEach(overlay => {
+            overlay.addEventListener('click', function() {
+                document.querySelectorAll('.popup').forEach(popup => {
+                    hidePopup(popup);
+                });
+            });
+        });
+        
+        function showPopup(popup) {
+            document.querySelector('.overlay').classList.add('show');
+            popup.classList.add('show');
+            
+            // Masquer automatiquement après 5 secondes
+            setTimeout(() => {
+                hidePopup(popup);
+            }, 5000);
+        }
+        
+        function hidePopup(popup) {
+            popup.classList.remove('show');
+            document.querySelector('.overlay').classList.remove('show');
+        }
+    });
+    // Remplacer la simulation par ce code pour une vraie implémentation
+document.querySelector('.contact-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const formData = new FormData(this);
+    
+    fetch('votre-script-de-traitement.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showPopup(document.querySelector('.popup.success'));
+            this.reset();
+        } else {
+            showPopup(document.querySelector('.popup.error'));
+        }
+    })
+    .catch(error => {
+        showPopup(document.querySelector('.popup.error'));
+    });
+});
+// Modifiez la fonction de soumission pour ajouter une animation
+document.querySelector('.contact-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // Animation de "chargement" du bouton
+    const submitBtn = this.querySelector('.submit-btn');
+    gsap.to(submitBtn, {
+        scale: 0.95,
+        backgroundColor: "rgba(69, 208, 228, 0.4)",
+        duration: 0.3
+    });
+    
+    // Simulation d'envoi (remplacez par votre vrai code d'envoi)
+    const isSuccess = Math.random() > 0.3; // 70% de chance de succès pour la démo
+    
+    setTimeout(() => {
+        // Réinitialise l'animation du bouton
+        gsap.to(submitBtn, {
+            scale: 1,
+            backgroundColor: "rgba(69, 208, 228, 0.2)",
+            duration: 0.3
+        });
+        
+        if (isSuccess) {
+            // Animation de succès
+            gsap.to(this, {
+                opacity: 0.5,
+                duration: 0.5,
+                onComplete: () => {
+                    showPopup(document.querySelector('.popup.success'));
+                    this.reset();
+                    gsap.to(this, {opacity: 1, duration: 0.5});
+                }
+            });
+        } else {
+            // Animation d'erreur
+            gsap.fromTo(this, 
+                {x: -10}, 
+                {x: 10, duration: 0.1, repeat: 5, yoyo: true, onComplete: () => {
+                    showPopup(document.querySelector('.popup.error'));
+                }}
+            );
+        }
+    }, 1000);
+});
+
+</script>
+<style>
+    /* Popup styles */
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px 30px;
+    border-radius: 10px;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s;
+}
+
+.popup.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.popup.success {
+    background-color: rgba(40, 167, 69, 0.9);
+    border: 1px solid #28a745;
+}
+
+.popup.error {
+    background-color: rgba(220, 53, 69, 0.9);
+    border: 1px solid #dc3545;
+}
+
+.popup-icon {
+    font-size: 24px;
+    margin-right: 15px;
+}
+
+.popup-close {
+    margin-left: 20px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s;
+}
+
+.overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+</style>
+
+</body>
+</html>
